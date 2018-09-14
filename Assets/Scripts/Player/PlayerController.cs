@@ -19,14 +19,14 @@ public class PlayerController : MonoBehaviour {
     }
 
 
-    void FixedUpdate () {
+    void FixedUpdate() {
         grounded = rb2d.IsTouching(Floor.GetComponent<BoxCollider2D>());
 
         float moveHorizontal = Input.GetAxis("Horizontal");
 
-        Vector2 movementW = new Vector2(moveHorizontal * walk , 0);
+        Vector2 movementW = new Vector2(moveHorizontal * walk, 0);
         Vector2 movementR = new Vector2(moveHorizontal * run, 0);
-        
+
         if (moveHorizontal > 0.1f) {
             sp.flipX = false;
         }
@@ -35,12 +35,12 @@ public class PlayerController : MonoBehaviour {
             sp.flipX = true;
         }
 
-        if (!(Input.GetButton("Run")))
+        if (!(Input.GetButton("Run")) || !grounded)
         {
             transform.Translate(movementW * Time.fixedDeltaTime);
         }
 
-        if (moveHorizontal != 0 && Input.GetButton("Run")) {
+        if (moveHorizontal != 0 && Input.GetButton("Run") && grounded) {
                 transform.Translate((movementR) * Time.fixedDeltaTime);
         }
 
