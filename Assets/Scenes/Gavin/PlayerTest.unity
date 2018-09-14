@@ -338,11 +338,6 @@ Prefab:
       propertyPath: Floor
       value: 
       objectReference: {fileID: 1084169834}
-    - target: {fileID: 114424328566621180, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
-        type: 2}
-      propertyPath: jump
-      value: 550
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d2ea9f23f76ccf409b559aa6eb5f962, type: 2}
   m_IsPrefabParent: 0
