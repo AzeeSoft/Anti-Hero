@@ -338,52 +338,10 @@ Prefab:
       propertyPath: Floor
       value: 
       objectReference: {fileID: 1084169834}
-    - target: {fileID: 4647758089012866, guid: 7d2ea9f23f76ccf409b559aa6eb5f962, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4647758089012866, guid: 7d2ea9f23f76ccf409b559aa6eb5f962, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4647758089012866, guid: 7d2ea9f23f76ccf409b559aa6eb5f962, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 212658547898928446, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
-        type: 2}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212658547898928446, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
-        type: 2}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114424328566621180, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
-        type: 2}
-      propertyPath: walk
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114424328566621180, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
-        type: 2}
-      propertyPath: run
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 114424328566621180, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
         type: 2}
       propertyPath: jump
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 212658547898928446, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212658547898928446, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: 0
+      value: 550
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d2ea9f23f76ccf409b559aa6eb5f962, type: 2}
