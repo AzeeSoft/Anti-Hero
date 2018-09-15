@@ -13,17 +13,24 @@ public class PlayerController : MonoBehaviour
 
     public int walk;
     public int jump;
+    public int dash;
+    public int dashTime;
     public float groundCheckDist;
 
+    private int dashTemp;
     private bool grounded;
+    private bool right = true;
+    private bool left = true;
     private float inputHorizontal;
     private bool inputJump;
+    private bool inputDash;
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
+        dashTemp = dashTime;
     }
 
     private void OnDrawGizmos()
@@ -44,12 +51,28 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         TryJump();
+        Dash();
     }
 
     void GetInputs()
     {
         inputHorizontal = Input.GetAxis("Horizontal");
         inputJump = Input.GetButtonDown("Jump");
+        inputDash = Input.GetButtonDown("Dash");
+    }
+
+    void Dash()
+    {
+        Vector2 movementDash = new Vector2(inputHorizontal*dash,0);
+        dashTime = dashTemp;
+        if (inputDash)
+        {
+            while (dashTime != 0)
+            {
+                transform.Translate(movementDash * Time.fixedDeltaTime);
+                dashTime--;
+            }
+        }
     }
 
     void Move()
@@ -58,13 +81,19 @@ public class PlayerController : MonoBehaviour
         transform.Translate(movement * Time.fixedDeltaTime);
 
         Vector3 newScale = HelperUtilities.CloneVector3(transform.localScale);
-        if (inputHorizontal >= 0.0f)
+        if (inputHorizontal > 0.0) right = true;
+        if (inputHorizontal < 0.0) left = true;
+        if (inputHorizontal > 0.0f && right)
         {
+            left = false;
             newScale.x = Mathf.Abs(newScale.x);
+            right = true;
         }
-        else
+        else if(inputHorizontal < 0.0f && left)
         {
+            right = false;
             newScale.x = Mathf.Abs(newScale.x) * -1;
+            left = true;
         }
         transform.localScale = newScale;
     }
