@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public GameObject Floor;
     public Transform LeftLeg;
@@ -11,11 +12,13 @@ public class PlayerController : MonoBehaviour {
     private SpriteRenderer sp;
 
     public int walk;
-    public int run;
     public int jump;
     public float groundCheckDist;
 
     private bool grounded;
+    private float inputHorizontal;
+    private bool inputJump;
+
 
     void Start()
     {
@@ -32,41 +35,53 @@ public class PlayerController : MonoBehaviour {
         Gizmos.DrawLine(RightLeg.position, rightEnd);
     }
 
+    void Update()
+    {
+        GetInputs();
+    }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
+        Move();
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        TryJump();
+    }
 
-        Vector2 movementW = new Vector2(moveHorizontal * walk, 0);
-        Vector2 movementR = new Vector2(moveHorizontal * run, 0);
+    void GetInputs()
+    {
+        inputHorizontal = Input.GetAxis("Horizontal");
+        inputJump = Input.GetButtonDown("Jump");
+    }
 
-        if (moveHorizontal > 0.1f) {
-            sp.flipX = false;
-        }
-        if (moveHorizontal < -0.1f)
+    void Move()
+    {
+        Vector2 movement = new Vector2(inputHorizontal * walk, 0);
+        transform.Translate(movement * Time.fixedDeltaTime);
+
+        Vector3 newScale = HelperUtilities.CloneVector3(transform.localScale);
+        if (inputHorizontal >= 0.0f)
         {
-            sp.flipX = true;
+            newScale.x = Mathf.Abs(newScale.x);
         }
-
+        else
+        {
+            newScale.x = Mathf.Abs(newScale.x) * -1;
+        }
+        transform.localScale = newScale;
+    }
+    
+    void TryJump()
+    {
         RaycastHit2D groundCheckerL = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
         RaycastHit2D groundCheckerR = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
         grounded = groundCheckerL.collider != null || groundCheckerR.collider != null;
 
-        if (!(Input.GetButton("Run")) || !grounded)
+        if (grounded && inputJump)
         {
-            transform.Translate(movementW * Time.fixedDeltaTime);
-        }
-
-        if (moveHorizontal != 0 && Input.GetButton("Run") && grounded) {
-                transform.Translate((movementR) * Time.fixedDeltaTime);
-        }
-
-        if (grounded && Input.GetButtonDown("Jump")) {
             Vector3 velocity = HelperUtilities.CloneVector3(rb2d.velocity);
             velocity.y = 0;
             rb2d.velocity = velocity;
             rb2d.AddForce(Vector2.up * jump);
         }
-
     }
 }
