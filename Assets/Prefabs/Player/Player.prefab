@@ -168,6 +168,7 @@ MonoBehaviour:
   totalDash: 0.3
   groundCheckDist: 0.05
   availableDash: 0
+  dashReplenish: 0.005
 --- !u!114 &114836050601359422
 MonoBehaviour:
   m_ObjectHideFlags: 1

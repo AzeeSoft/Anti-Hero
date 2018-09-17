@@ -16,8 +16,9 @@ public class PlayerController : MonoBehaviour
     public int dash;
     public float totalDash;
     public float groundCheckDist;
-
     public float availableDash;
+    public float dashReplenish;
+
     private Vector2 dashVector;
     private bool grounded;
     private bool facingRight = true;
@@ -63,10 +64,10 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (inputDash && !isDashing)
+        if (inputDash && !isDashing && availableDash >= totalDash)
         {
             isDashing = true;
-            availableDash = totalDash;
+            //availableDash = totalDash;
             float dir = facingRight ? 1f : -1f;
             dashVector = new Vector2(dir * dash, 0);
             rb2d.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
@@ -83,6 +84,15 @@ public class PlayerController : MonoBehaviour
                 rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
         }
+
+        if (!isDashing)
+        {
+            if (availableDash < totalDash)
+            {
+                availableDash += dashReplenish;
+            }
+        }
+
         transform.Translate(movement * Time.fixedDeltaTime);
 
         Vector3 newScale = HelperUtilities.CloneVector3(transform.localScale);
