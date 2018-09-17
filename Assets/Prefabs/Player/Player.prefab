@@ -22,7 +22,9 @@ GameObject:
   - component: {fileID: 212658547898928446}
   - component: {fileID: 61727982187383200}
   - component: {fileID: 50698481411880176}
+  - component: {fileID: 114836050601359422}
   - component: {fileID: 114424328566621180}
+  - component: {fileID: 114956498655548506}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -161,9 +163,33 @@ MonoBehaviour:
   LeftLeg: {fileID: 4753187994138854}
   RightLeg: {fileID: 4955105675353714}
   walk: 10
-  run: 15
   jump: 550
+  dash: 25
+  totalDash: 0.3
   groundCheckDist: 0.05
+  availableDash: 0
+--- !u!114 &114836050601359422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1360681720183062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6979e0322e1d8974eacadb99118b7730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114956498655548506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1360681720183062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9352233adef229242b440c9eebbaf45f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212658547898928446
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -14,13 +14,15 @@ public class PlayerController : MonoBehaviour
     public int walk;
     public int jump;
     public int dash;
-    public int dashTime;
+    public float totalDash;
     public float groundCheckDist;
 
-    private int dashTemp;
+    public float availableDash;
+    private Vector2 dashVector;
     private bool grounded;
-    private bool right = true;
-    private bool left = true;
+    private bool facingRight = true;
+    private bool isDashing = false;
+
     private float inputHorizontal;
     private bool inputJump;
     private bool inputDash;
@@ -30,7 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
-        dashTemp = dashTime;
     }
 
     private void OnDrawGizmos()
@@ -51,7 +52,6 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         TryJump();
-        Dash();
     }
 
     void GetInputs()
@@ -61,45 +61,51 @@ public class PlayerController : MonoBehaviour
         inputDash = Input.GetButtonDown("Dash");
     }
 
-    void Dash()
-    {
-        Vector2 movementDash = new Vector2(inputHorizontal*dash,0);
-        dashTime = dashTemp;
-        if (inputDash)
-        {
-            while (dashTime != 0)
-            {
-                transform.Translate(movementDash * Time.fixedDeltaTime);
-                dashTime--;
-            }
-        }
-    }
-
     void Move()
     {
+        if (inputDash && !isDashing)
+        {
+            isDashing = true;
+            availableDash = totalDash;
+            float dir = facingRight ? 1f : -1f;
+            dashVector = new Vector2(dir * dash, 0);
+            rb2d.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        }
+
         Vector2 movement = new Vector2(inputHorizontal * walk, 0);
+        if (isDashing)
+        {
+            movement = HelperUtilities.CloneVector3(dashVector);
+            availableDash -= Time.fixedDeltaTime;
+            if(availableDash < 0)
+            {
+                isDashing = false;
+                rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+        }
         transform.Translate(movement * Time.fixedDeltaTime);
 
         Vector3 newScale = HelperUtilities.CloneVector3(transform.localScale);
-        if (inputHorizontal > 0.0) right = true;
-        if (inputHorizontal < 0.0) left = true;
-        if (inputHorizontal > 0.0f && right)
+        if (movement.x > 0.0) facingRight = true;
+        if (movement.x < 0.0) facingRight = false;
+        if (movement.x > 0.0f && facingRight)
         {
-            left = false;
             newScale.x = Mathf.Abs(newScale.x);
-            right = true;
         }
-        else if(inputHorizontal < 0.0f && left)
+        else if(movement.x < 0.0f && !facingRight)
         {
-            right = false;
             newScale.x = Mathf.Abs(newScale.x) * -1;
-            left = true;
         }
         transform.localScale = newScale;
     }
     
     void TryJump()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         RaycastHit2D groundCheckerL = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
         RaycastHit2D groundCheckerR = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
         grounded = groundCheckerL.collider != null || groundCheckerR.collider != null;
