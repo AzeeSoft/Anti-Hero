@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DirFlipper
+  - Pitfall
   layers:
   - Default
   - TransparentFX

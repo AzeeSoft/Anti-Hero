@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,11 +29,14 @@ public class PlayerController : MonoBehaviour
     private bool inputJump;
     private bool inputDash;
 
+    public Text deathText;
+
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
+        deathText.text = "";
     }
 
     private void OnDrawGizmos()
@@ -78,7 +82,7 @@ public class PlayerController : MonoBehaviour
         {
             movement = HelperUtilities.CloneVector3(dashVector);
             availableDash -= Time.fixedDeltaTime;
-            if(availableDash < 0)
+            if (availableDash < 0)
             {
                 isDashing = false;
                 rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -102,13 +106,13 @@ public class PlayerController : MonoBehaviour
         {
             newScale.x = Mathf.Abs(newScale.x);
         }
-        else if(movement.x < 0.0f && !facingRight)
+        else if (movement.x < 0.0f && !facingRight)
         {
             newScale.x = Mathf.Abs(newScale.x) * -1;
         }
         transform.localScale = newScale;
     }
-    
+
     void TryJump()
     {
         if (isDashing)
@@ -126,6 +130,14 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
             rb2d.velocity = velocity;
             rb2d.AddForce(Vector2.up * jump);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Pitfall"))
+        {
+            deathText.text = "You Died!";
         }
     }
 }
