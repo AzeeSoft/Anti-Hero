@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8932f5984d7eee54db9c8f8c09f9cf1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Floor: {fileID: 0}
   LeftLeg: {fileID: 4753187994138854}
   RightLeg: {fileID: 4955105675353714}
   walk: 10
@@ -169,6 +168,7 @@ MonoBehaviour:
   groundCheckDist: 0.05
   availableDash: 0
   dashReplenish: 0.005
+  deathText: {fileID: 0}
 --- !u!114 &114836050601359422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6979e0322e1d8974eacadb99118b7730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb2d: {fileID: 0}
+  sp: {fileID: 0}
 --- !u!114 &114956498655548506
 MonoBehaviour:
   m_ObjectHideFlags: 1
