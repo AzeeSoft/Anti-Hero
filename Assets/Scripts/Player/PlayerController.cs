@@ -34,7 +34,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        deathText.text = "";
+        if (deathText != null)
+        {
+            deathText.text = "";
+        }
     }
 
     private void OnDrawGizmos()
