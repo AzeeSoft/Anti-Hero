@@ -5,12 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-
-    public GameObject Floor;
+    PlayerModel PM;
     public Transform LeftLeg;
     public Transform RightLeg;
-    private Rigidbody2D rb2d;
-    private SpriteRenderer sp;
 
     public int walk;
     public int jump;
@@ -19,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float groundCheckDist;
     public float availableDash;
     public float dashReplenish;
+    public Text deathText;
 
     private Vector2 dashVector;
     private bool grounded;
@@ -29,14 +27,17 @@ public class PlayerController : MonoBehaviour
     private bool inputJump;
     private bool inputDash;
 
-    public Text deathText;
-
+    void Awake()
+    {
+        PM = GetComponent<PlayerModel>();
+    }
 
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-        sp = GetComponent<SpriteRenderer>();
-        deathText.text = "";
+        if (deathText != null)
+        {
+            deathText.text = "";
+        }
     }
 
     private void OnDrawGizmos()
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour
             //availableDash = totalDash;
             float dir = facingRight ? 1f : -1f;
             dashVector = new Vector2(dir * dash, 0);
-            rb2d.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            PM.rb2d.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
 
         Vector2 movement = new Vector2(inputHorizontal * walk, 0);
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
             if (availableDash < 0)
             {
                 isDashing = false;
-                rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+                PM.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
         }
 
@@ -126,10 +127,10 @@ public class PlayerController : MonoBehaviour
 
         if (grounded && inputJump)
         {
-            Vector3 velocity = HelperUtilities.CloneVector3(rb2d.velocity);
+            Vector3 velocity = HelperUtilities.CloneVector3(PM.rb2d.velocity);
             velocity.y = 0;
-            rb2d.velocity = velocity;
-            rb2d.AddForce(Vector2.up * jump);
+            PM.rb2d.velocity = velocity;
+            PM.rb2d.AddForce(Vector2.up * jump);
         }
     }
 
