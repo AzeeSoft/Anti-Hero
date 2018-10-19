@@ -26,10 +26,11 @@ public class PlayerController : MonoBehaviour
     private float inputHorizontal;
     private bool inputJump;
     private bool inputDash;
-
+    public Animator anim;
     void Awake()
     {
         PM = GetComponent<PlayerModel>();
+
     }
 
     void Start()
@@ -99,7 +100,7 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(movement * Time.fixedDeltaTime);
-
+        
         Vector3 newScale = HelperUtilities.CloneVector3(transform.localScale);
         if (movement.x > 0.0) facingRight = true;
         if (movement.x < 0.0) facingRight = false;
@@ -110,6 +111,15 @@ public class PlayerController : MonoBehaviour
         else if (movement.x < 0.0f && !facingRight)
         {
             newScale.x = Mathf.Abs(newScale.x) * -1;
+        }
+
+        if(movement.x == 0)
+        {
+            anim.SetBool("IsWalking", false);
+        }
+        else
+        {
+            anim.SetBool("IsWalking", true);
         }
         transform.localScale = newScale;
     }
