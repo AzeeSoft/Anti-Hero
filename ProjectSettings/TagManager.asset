@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DirFlipper
   - Pitfall
+  - Enemy
   layers:
   - Default
   - TransparentFX
