@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3caafaba6b9a7624e83e122b53b1c2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextScene: TestMainScene
+  NextScene: Environment Test
 --- !u!1 &1424569681
 GameObject:
   m_ObjectHideFlags: 0
