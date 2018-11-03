@@ -369,6 +369,48 @@ GameObject:
   m_PrefabParentObject: {fileID: 1360681720183062, guid: 7d2ea9f23f76ccf409b559aa6eb5f962,
     type: 2}
   m_PrefabInternal: {fileID: 241195281}
+--- !u!1001 &475018159
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 377.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 174
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101937004212796, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d335433d3d9336641af0241cc1398a81, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &483159628 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4981781552513866, guid: 0723bc4c5a83d644dbe149eff4f999a8,
