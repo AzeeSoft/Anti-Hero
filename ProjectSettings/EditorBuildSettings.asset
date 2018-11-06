@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Azee/TestScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Andrew/MenuTest.unity
-    guid: b629ff9d990b59740acca4ec716dbe02
+    path: Assets/Scenes/Andrew/TestMainScene.unity
+    guid: 4825d0d18363f584cb9ae4d17e289242
   - enabled: 1
     path: Assets/Scenes/Samuel/Environment Test.unity
     guid: 4c0d4c108e3cf0842907b64cfe37af98
