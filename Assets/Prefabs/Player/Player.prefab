@@ -85,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284034198082178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalPosition: {x: -27, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4925948897106378}
@@ -127,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1746807592362952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.3, y: 3.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4253366746294528}
@@ -147,7 +147,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 8
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -210,12 +210,13 @@ MonoBehaviour:
   LeftLeg: {fileID: 4925948897106378}
   RightLeg: {fileID: 4633338436035926}
   walk: 20
-  jump: 1000
+  jump: 2500
   dash: 50
   totalDash: 0.3
   groundCheckDist: 0.05
   availableDash: 0
   dashReplenish: 0.005
+  fastFallFactor: 2
   deathText: {fileID: 0}
 --- !u!114 &114231825381622300
 MonoBehaviour:
@@ -228,6 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6979e0322e1d8974eacadb99118b7730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 100
+  health: 100
   rb2d: {fileID: 0}
   sp: {fileID: 0}
 --- !u!114 &114859351096002822
@@ -257,7 +260,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 38c226f8c3764fe4c8dba9161789d4dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
