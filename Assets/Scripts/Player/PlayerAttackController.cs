@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackController : MonoBehaviour {
-
+public class PlayerAttackController : MonoBehaviour
+{
     public GameObject AttackHB;
-   //public BoxCollider2D attack;
+    //public BoxCollider2D attack;
 
     void Start()
     {
-       // attack = AttackHB.GetComponent<BoxCollider2D>();
+        // attack = AttackHB.GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -18,6 +18,7 @@ public class PlayerAttackController : MonoBehaviour {
         {
             AttackHB.SetActive(true);
         }
+
         if (Input.GetButtonUp("Attack"))
         {
             AttackHB.SetActive(false);
@@ -29,9 +30,9 @@ public class PlayerAttackController : MonoBehaviour {
         if (Input.GetButton("Attack"))
         {
             if (collision.gameObject.tag == "Enemy")
-           {
+            {
                 Debug.Log("Ouch!");
-           }
+            }
         }
     }
 }

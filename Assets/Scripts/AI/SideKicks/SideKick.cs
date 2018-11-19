@@ -5,19 +5,36 @@ using UnityEngine;
 
 public class SideKick : MonoBehaviour
 {
-    public bool InitiallyFacingRight = true;
+//    public bool InitiallyFacingRight = true;
+
+    public float playerDetectionRange = 80f;
+    public float playerAttackRange = 40f;
+
+    public bool showGizmos = false;
 
     private StateMachine<SideKick> _stateMachine;
     [HideInInspector] public SideKickController Controller;
 
     public Patrol.StateData PatrolStateData;
 
+    void OnDrawGizmos()
+    {
+        if (!showGizmos)
+            return;
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, playerDetectionRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, playerAttackRange);
+    }
+
     void Awake()
     {
         Controller = GetComponent<SideKickController>();
 
         _stateMachine = new StateMachine<SideKick>(this);
-        _stateMachine.SwitchState(Patrol.Instance, InitiallyFacingRight ? Vector3.right : Vector3.left);
+        _stateMachine.SwitchState(Idle.Instance);
     }
 
     // Use this for initialization
@@ -46,7 +63,47 @@ public class SideKick : MonoBehaviour
     {
         if (collision2D.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Attacking Player");
+//            Debug.Log("Attacking Player");
         }
+    }
+
+
+    public bool IsPlayerInDetectionRange()
+    {
+        float dist = Vector2.Distance(transform.position,
+            LevelManager.Instance.GetPlayerGameObject().transform.position);
+        if (dist <= playerDetectionRange)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool IsPlayerInAttackRange()
+    {
+        float dist = Vector2.Distance(transform.position,
+            LevelManager.Instance.GetPlayerGameObject().transform.position);
+        if (dist <= playerAttackRange)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void SwitchToIdleState()
+    {
+        _stateMachine.SwitchState(Idle.Instance);
+    }
+
+    public void SwitchToApproachPlayerState()
+    {
+        _stateMachine.SwitchState(ApproachPlayer.Instance);
+    }
+
+    public void SwitchToAttackPlayerState()
+    {
+        _stateMachine.SwitchState(AttackPlayer.Instance);
     }
 }

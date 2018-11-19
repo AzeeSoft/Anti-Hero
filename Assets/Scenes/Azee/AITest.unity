@@ -411,6 +411,11 @@ Prefab:
       propertyPath: m_Name
       value: DirFlipper (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 212475446820756176, guid: 74075503cd8fd874fb7e0a624e6bf2ae,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74075503cd8fd874fb7e0a624e6bf2ae, type: 2}
   m_IsPrefabParent: 0
@@ -457,6 +462,11 @@ Prefab:
     - target: {fileID: 4104871106090232, guid: 74075503cd8fd874fb7e0a624e6bf2ae, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212475446820756176, guid: 74075503cd8fd874fb7e0a624e6bf2ae,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74075503cd8fd874fb7e0a624e6bf2ae, type: 2}

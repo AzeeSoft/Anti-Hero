@@ -6,21 +6,21 @@ using UnityEngine;
 
 namespace AI.SideKickStates
 {
-    public class Idle : StateMachine<SideKick>.State
+    public class AttackPlayer : StateMachine<SideKick>.State
     {
         public class StateData
         {
 
         }
 
-        private static Idle _instance;
+        private static AttackPlayer _instance;
 
-        public static Idle Instance
+        public static AttackPlayer Instance
         {
-            get { return _instance ?? (_instance = new Idle()); }
+            get { return _instance ?? (_instance = new AttackPlayer()); }
         }
 
-        private Idle()
+        private AttackPlayer()
         {
         }
 
@@ -31,10 +31,14 @@ namespace AI.SideKickStates
 
         public void Update(SideKick owner)
         {
-            if (owner.IsPlayerInDetectionRange())
+            if (owner.IsPlayerInAttackRange())
+            {
+                Debug.Log("Attacking Player!!!");
+            }
+            else
             {
                 owner.SwitchToApproachPlayerState();
-            }
+            } 
         }
 
         public void Exit(SideKick owner)
