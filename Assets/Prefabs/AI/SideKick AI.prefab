@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1936789570520418}
   m_IsPrefabParent: 1
+--- !u!1 &1447934362584162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4937180659542378}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1936789570520418
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,7 +41,7 @@ GameObject:
   - component: {fileID: 114813188700242732}
   m_Layer: 0
   m_Name: SideKick AI
-  m_TagString: Enemy
+  m_TagString: SideKick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,11 +52,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1936789570520418}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41.93, y: 0.71, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -39.199825, y: -15.2558975, z: -7.421875}
   m_LocalScale: {x: 10, y: 10, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4937180659542378}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4937180659542378
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1447934362584162}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.583, y: 0.243, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4649015028467110}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50474982733140254
@@ -76,7 +105,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04951322, y: 0.07067406}
+  m_Offset: {x: -0.04951322, y: -0.005287528}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -87,7 +116,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7762735, y: 0.82931066}
+  m_Size: {x: 0.7762735, y: 0.98123384}
   m_EdgeRadius: 0
 --- !u!114 &114775660302433654
 MonoBehaviour:
@@ -100,8 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3163119e332ad4546accdabf099a4bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1422652743228666, guid: 0e198638ca2344f42a861bca3dd864ee,
+    type: 2}
+  bulletSpawnPoint: {fileID: 4937180659542378}
   playerDetectionRange: 100
   playerAttackRange: 50
+  shootInterval: 2
+  showGizmos: 0
   Controller: {fileID: 0}
 --- !u!114 &114813188700242732
 MonoBehaviour:

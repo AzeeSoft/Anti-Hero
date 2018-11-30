@@ -20,21 +20,30 @@ public class PlayerController : MonoBehaviour
     public float availableDash;
     public float dashReplenish;
     public Text deathText;
+    public Color dashColor;
 
     private Vector2 dashVector;
+    private Color originalColor;
     private bool grounded;
     private bool facingRight = true;
-    private bool isDashing = false;
+    [HideInInspector] public bool isDashing = false;
     private bool isWalking = false;
 
     private float inputHorizontal;
     private bool inputJump;
     private bool inputDash;
 
+    private SpriteRenderer _spriteRenderer;
+    private Collider2D _collider2D;
+
     void Awake()
     {
         PM = GetComponent<PlayerModel>();
         anim = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider2D = GetComponent<Collider2D>();
+
+        originalColor = _spriteRenderer.color;
     }
 
     void Start()
@@ -81,18 +90,13 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D groundCheckerL = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
         RaycastHit2D groundCheckerR = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
         grounded = groundCheckerL.collider != null || groundCheckerR.collider != null;
-
     }
 
     void Move()
     {
-        if (inputDash && !isDashing && availableDash >= totalDash)
+        if (inputDash && !isDashing && availableDash >= totalDash && LevelManager.Instance._isPlaying)
         {
-            isDashing = true;
-            //availableDash = totalDash;
-            float dir = facingRight ? 1f : -1f;
-            dashVector = new Vector2(dir * dash, 0);
-            PM.rb2d.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            StartDashing();
         }
 
         Vector2 movement = new Vector2(inputHorizontal * walk, 0);
@@ -102,8 +106,7 @@ public class PlayerController : MonoBehaviour
             availableDash -= Time.fixedDeltaTime;
             if (availableDash < 0)
             {
-                isDashing = false;
-                PM.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+                StopDashing();
             }
         }
 
@@ -115,8 +118,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        transform.Translate(movement * Time.fixedDeltaTime);
-        
+        if (LevelManager.Instance._isPlaying)
+        {
+            transform.Translate(movement * Time.fixedDeltaTime);
+        }
+
         Vector3 newScale = HelperUtilities.CloneVector3(transform.localScale);
         if (movement.x > 0.0) facingRight = true;
         if (movement.x < 0.0) facingRight = false;
@@ -154,6 +160,27 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("IsGrounded", grounded);
         anim.SetBool("IsWalking", isWalking);
         anim.SetBool("IsDashing", isDashing);
+    }
+
+    void StartDashing()
+    {
+        isDashing = true;
+        _collider2D.isTrigger = true;
+        _spriteRenderer.color = dashColor;
+
+        //availableDash = totalDash;
+        float dir = facingRight ? 1f : -1f;
+        dashVector = new Vector2(dir * dash, 0);
+        PM.rb2d.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    void StopDashing()
+    {
+        isDashing = false;
+        _collider2D.isTrigger = false;
+        _spriteRenderer.color = originalColor;
+
+        PM.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

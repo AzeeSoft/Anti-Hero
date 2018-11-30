@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4274315497129304}
   - component: {fileID: 212505994104861152}
+  - component: {fileID: 114593087875177598}
   m_Layer: 0
   m_Name: Sky
   m_TagString: Untagged
@@ -34,12 +35,28 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697782806759036}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.42303324, y: 25, z: 13.48013}
-  m_LocalScale: {x: 5.944985, y: 5.944984, z: 5.944984}
+  m_LocalPosition: {x: 0, y: 5.5, z: 50}
+  m_LocalScale: {x: 17.750395, y: 7, z: 5.944984}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114593087875177598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1697782806759036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa61523621777d4ba2dc1efb0c616bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minInterval: 0.4
+  maxInterval: 3
+  minLightningDuration: 0.1
+  maxLightningDuration: 0.3
+  LightningColor: {r: 0.6921057, g: 0.9716981, b: 0.6971892, a: 1}
 --- !u!212 &212505994104861152
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -55,7 +72,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 38c226f8c3764fe4c8dba9161789d4dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,9 +93,9 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: d72134c71eea19a4bb022c0f7d56f8e9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.503916, g: 0.7169812, b: 0.5075896, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 30.000002, y: 15.000001}
   m_AdaptiveModeThreshold: 0.5

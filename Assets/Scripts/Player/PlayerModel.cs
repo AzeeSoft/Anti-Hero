@@ -7,8 +7,7 @@ public class PlayerModel : MonoBehaviour
 {
     public int MaxHealth = 100;
 
-    [SerializeField]
-    private int health = 100;
+    [SerializeField] private int health = 100;
 
     [HideInInspector] public Rigidbody2D rb2d;
     [HideInInspector] public SpriteRenderer sp;
@@ -35,5 +34,34 @@ public class PlayerModel : MonoBehaviour
     public float GetTotalDash()
     {
         return playerController.totalDash;
+    }
+
+    bool CanTakeDamage()
+    {
+        return !playerController.isDashing;
+    }
+
+    public bool TakeDamage(int damage)
+    {
+        if (CanTakeDamage())
+        {
+            health -= damage;
+            if (health < 0)
+            {
+                health = 0;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("WinBox"))
+        {
+            LevelManager.Instance.GameWon();
+        }
     }
 }

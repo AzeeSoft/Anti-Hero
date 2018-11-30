@@ -7,8 +7,12 @@ public class SideKick : MonoBehaviour
 {
 //    public bool InitiallyFacingRight = true;
 
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+
     public float playerDetectionRange = 80f;
     public float playerAttackRange = 40f;
+    public float shootInterval = 1f;
 
     public bool showGizmos = false;
 
@@ -16,6 +20,7 @@ public class SideKick : MonoBehaviour
     [HideInInspector] public SideKickController Controller;
 
     public Patrol.StateData PatrolStateData;
+    public AttackPlayer.StateData AttackStateData;
 
     void OnDrawGizmos()
     {
@@ -84,7 +89,23 @@ public class SideKick : MonoBehaviour
     {
         float dist = Vector2.Distance(transform.position,
             LevelManager.Instance.GetPlayerGameObject().transform.position);
-        if (dist <= playerAttackRange)
+        if (dist <= playerAttackRange && IsFacingPlayer())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool IsFacingPlayer()
+    {
+        if (transform.localScale.x > 0 &&
+            transform.position.x > LevelManager.Instance.GetPlayerGameObject().transform.position.x)
+        {
+            return true;
+        }
+        if (transform.localScale.x < 0 &&
+            transform.position.x < LevelManager.Instance.GetPlayerGameObject().transform.position.x)
         {
             return true;
         }
@@ -105,5 +126,16 @@ public class SideKick : MonoBehaviour
     public void SwitchToAttackPlayerState()
     {
         _stateMachine.SwitchState(AttackPlayer.Instance);
+    }
+
+    public void ShootBullet()
+    {
+        Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation).GetComponent<Bullet>();
+        bullet.dir = -transform.right * Mathf.Sign(transform.localScale.x);
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

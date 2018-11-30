@@ -10,7 +10,7 @@ namespace AI.SideKickStates
     {
         public class StateData
         {
-
+            public float lastShootTime = 0;
         }
 
         private static AttackPlayer _instance;
@@ -26,14 +26,21 @@ namespace AI.SideKickStates
 
         public void Enter(SideKick owner, params object[] args)
         {
-
+            if (owner.AttackStateData == null)
+            {
+                owner.AttackStateData = new StateData();
+            }
         }
 
         public void Update(SideKick owner)
         {
             if (owner.IsPlayerInAttackRange())
             {
-                Debug.Log("Attacking Player!!!");
+                if (Time.time - owner.AttackStateData.lastShootTime > owner.shootInterval)
+                {
+                    owner.ShootBullet();
+                    owner.AttackStateData.lastShootTime = Time.time;
+                }
             }
             else
             {

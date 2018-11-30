@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class PlayerAttackController : MonoBehaviour
 {
-    public GameObject AttackHB;
+//    public GameObject AttackHB;
     //public BoxCollider2D attack;
+
+    private PlayerModel model;
+    private PlayerController controller;
+
+    void Awake()
+    {
+        model = GetComponent<PlayerModel>();
+        controller = GetComponent<PlayerController>();
+    }
 
     void Start()
     {
@@ -14,7 +23,7 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Attack"))
+        /*if (Input.GetButton("Attack"))
         {
             AttackHB.SetActive(true);
         }
@@ -22,16 +31,17 @@ public class PlayerAttackController : MonoBehaviour
         if (Input.GetButtonUp("Attack"))
         {
             AttackHB.SetActive(false);
-        }
+        }*/
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (Input.GetButton("Attack"))
+        if (other.CompareTag("SideKick"))
         {
-            if (collision.gameObject.tag == "Enemy")
+            if (controller.isDashing)
             {
-                Debug.Log("Ouch!");
+                SideKick sideKick = other.GetComponent<SideKick>();
+                sideKick.Die();
             }
         }
     }
