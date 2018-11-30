@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace AI.SideKickStates
 {
@@ -30,7 +31,10 @@ namespace AI.SideKickStates
 
         public void Update(SideKick owner)
         {
-
+            if (owner.IsPlayerInDetectionRange())
+            {
+                owner.SwitchToApproachPlayerState();
+            }
         }
 
         public void Exit(SideKick owner)

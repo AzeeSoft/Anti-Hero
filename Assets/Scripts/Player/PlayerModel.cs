@@ -5,15 +5,35 @@ using UnityEngine.UI;
 
 public class PlayerModel : MonoBehaviour
 {
-    [HideInInspector]
-    public Rigidbody2D rb2d;
-    [HideInInspector]
-    public SpriteRenderer sp;
+    public int MaxHealth = 100;
+
+    [SerializeField]
+    private int health = 100;
+
+    [HideInInspector] public Rigidbody2D rb2d;
+    [HideInInspector] public SpriteRenderer sp;
+
+    private PlayerController playerController;
 
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
+        playerController = GetComponent<PlayerController>();
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetAvailableDash()
+    {
+        return playerController.availableDash;
+    }
+
+    public float GetTotalDash()
+    {
+        return playerController.totalDash;
     }
 }
-

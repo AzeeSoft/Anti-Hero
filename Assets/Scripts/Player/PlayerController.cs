@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerModel PM;
+    private PlayerModel PM;
+    private Animator anim;
+
     public Transform LeftLeg;
     public Transform RightLeg;
 
@@ -22,15 +25,16 @@ public class PlayerController : MonoBehaviour
     private bool grounded;
     private bool facingRight = true;
     private bool isDashing = false;
+    private bool isWalking = false;
 
     private float inputHorizontal;
     private bool inputJump;
     private bool inputDash;
-    public Animator anim;
+
     void Awake()
     {
         PM = GetComponent<PlayerModel>();
-
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -57,8 +61,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        UpdateState();
+
         Move();
         TryJump();
+
+        UpdateAnimator();
     }
 
     void GetInputs()
@@ -66,6 +74,14 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = Input.GetAxis("Horizontal");
         inputJump = Input.GetButtonDown("Jump");
         inputDash = Input.GetButtonDown("Dash");
+    }
+
+    void UpdateState()
+    {
+        RaycastHit2D groundCheckerL = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
+        RaycastHit2D groundCheckerR = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
+        grounded = groundCheckerL.collider != null || groundCheckerR.collider != null;
+
     }
 
     void Move()
@@ -113,14 +129,7 @@ public class PlayerController : MonoBehaviour
             newScale.x = Mathf.Abs(newScale.x) * -1;
         }
 
-        if(movement.x == 0)
-        {
-            anim.SetBool("IsWalking", false);
-        }
-        else
-        {
-            anim.SetBool("IsWalking", true);
-        }
+        isWalking = Math.Abs(movement.x) > 0;
         transform.localScale = newScale;
     }
 
@@ -131,10 +140,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        RaycastHit2D groundCheckerL = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
-        RaycastHit2D groundCheckerR = Physics2D.Raycast(LeftLeg.position, Vector2.down, groundCheckDist);
-        grounded = groundCheckerL.collider != null || groundCheckerR.collider != null;
-
         if (grounded && inputJump)
         {
             Vector3 velocity = HelperUtilities.CloneVector3(PM.rb2d.velocity);
@@ -142,6 +147,13 @@ public class PlayerController : MonoBehaviour
             PM.rb2d.velocity = velocity;
             PM.rb2d.AddForce(Vector2.up * jump);
         }
+    }
+
+    void UpdateAnimator()
+    {
+        anim.SetBool("IsGrounded", grounded);
+        anim.SetBool("IsWalking", isWalking);
+        anim.SetBool("IsDashing", isDashing);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

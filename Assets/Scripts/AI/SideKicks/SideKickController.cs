@@ -25,12 +25,12 @@ public class SideKickController : MonoBehaviour {
         if (dir.x < 0)
         {
             delX = -MoveSpeed;
-            newScale.x = -Mathf.Abs(newScale.x);
+            newScale.x = Mathf.Abs(newScale.x);
         }
         else if (dir.x > 0)
         {
             delX = MoveSpeed;
-            newScale.x = Mathf.Abs(newScale.x);
+            newScale.x = -Mathf.Abs(newScale.x);
         }
         else
         {
